@@ -24,7 +24,6 @@ export class HeroeComponent implements OnInit {
     if (form.invalid) {
       console.log('Le formulaire non valide');
       return;
-
     }
 
 // utilisation Swal pour l'affiche de message a l'utilisateur
@@ -61,12 +60,10 @@ export class HeroeComponent implements OnInit {
     petition.subscribe(resp => {
       Swal.fire({
         title: this.heroe.Prenom,
-        text:'Cest enregistre correctement',
+        text:'Actualisation  correctement',
         icon: 'success',
       });
     });
-
-    
 
 
   }

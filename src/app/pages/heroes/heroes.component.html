@@ -21,12 +21,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
+    <tr *ngFor = 'let hero of heros; let i = index'>
+      <th scope="row"> {{ i + 1}}</th>
+      <td> {{ hero.Prenom }} </td>
+      <td> {{ hero.pouvoir }} </td>
+      <td> {{ hero.vivant }} </td>
+      <td>
+        <label *ngIf = "hero.vivant"  class="badge badge-success" >Vivant</label>
+        <label *ngIf = "!hero.vivant"  class="badge badge-danger" >Mort</label>
+      </td>
+      <td>  </td>
     </tr>
   </tbody>
 </table>
