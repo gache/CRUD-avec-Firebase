@@ -39,17 +39,17 @@ export class HeroeComponent implements OnInit {
 
     let petition: Observable<any>; // je cree une variable
 
-
+// ma condition si une hero existe j'actualise, s'il n'y a pas d'information d'un hero du coup je crée un nouveau hero
     if (this.heroe.id) {
-      // j'initialise la variable
-
-      petition = this.heroesService.actualisation(this.heroe);
+      // actualisation du hero déjà existante
+      petition = this.heroesService.actualiserHero(this.heroe);
 
       // .subscribe( resp => {
       // console.log(resp);
       // });
 
     } else {
+      //  creation d'un nouveau hero
       petition = this.heroesService.creerHero(this.heroe);
 
       // .subscribe( resp => {
