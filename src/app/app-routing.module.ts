@@ -17,7 +17,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes)
   ],
-  // je veux utiliser cette route dans autre module  je fais l'exportation
+  // je fais l'export pour pouvoir utiliser la route
   exports: [
     RouterModule
   ]

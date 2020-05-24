@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 // imporation pour travailler avec le formulaire
 import { FormsModule } from '@angular/forms';
 
-// Importation de Http
+// Importation pour faire petitions Http
 import { HttpClientModule } from '@angular/common/http';
 
 // Importation de la route

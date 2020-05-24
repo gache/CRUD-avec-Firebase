@@ -1,25 +1,32 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { HeroeModel } from "../pages/models/heroe.model";
-import { map } from "rxjs/operators";
-import { Key } from "protractor";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { HeroeModel } from '../pages/models/heroe.model'; // importation du model
+import { map } from 'rxjs/operators';
+import { Key } from 'protractor';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class HeroesService {
-  private Url = "https://crud-c050d.firebaseio.com";
+  // propriété de l'url où je vais stoker l'information.
+  private Url = 'https://crud-c050d.firebaseio.com';
 
+  // j'injecte le module HttpClient à mon contructor pour y acceder aux propriétés et methodes du module
   constructor(private http: HttpClient) {}
+
+  // Methode pour ajouter un hero
   creerHero(hero: HeroeModel) {
-    return this.http.post(`${this.Url}/Heroes.json`, hero).pipe(
-      map((resp: any) => {
-        hero.id = resp.name;
-        return hero;
+//  cette function reçoir comme parametre un hero et le nouveau hero est de type HeroeModel
+//  la petition post reçoit comme arguments(url, et body que dans mon cas est hero)
+    return this.http.post(`${this.Url}/Heroes.json`, hero) // quand je fais cette petition j'ai un id sur firebase
+                .pipe( map((resp: any) => {
+                hero.id = resp.name; // le parametre hero avec son id est égal à la response et dans la resp viens le name de firebase
+                return hero; // cette return du hero, returne toute l'instance de l'hero avec toute l'information avec son id
+                // pour utiliser operator map j'utilise un pipe avec l'operator map pour transfomer cette response
       })
     );
   }
-
+//  methode put
   actualisation(hero: HeroeModel) {
     const herotemp = {
       ...hero

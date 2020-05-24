@@ -11,9 +11,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./heroe.component.css']
 })
 export class HeroeComponent implements OnInit {
+
   // propriété, j'initisalise  avec HeroeModel
   heroe: HeroeModel = new HeroeModel();
 
+ // j'injecte mon service au contructor pour y acceder à la petition post
   constructor(private heroesService: HeroesService) { }
 
   ngOnInit() {
