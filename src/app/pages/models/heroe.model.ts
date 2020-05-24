@@ -1,11 +1,12 @@
 
-export class HeroeModel{
-    id: string;
-    Prenom: string;
-    pouvoir: string;
-    vivant: boolean;
+export class HeroeModel {
+  id: string;
+  Prenom: string;
+  pouvoir: string;
+  vivant: boolean;
 
-    constructor(){
-        this.vivant = true;
-    }
+  // j'initialise la propriété vivant par défaut va être true c'est dire vivant
+  constructor() {
+    this.vivant = true;
+  }
 }

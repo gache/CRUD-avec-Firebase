@@ -11,27 +11,26 @@ import Swal from 'sweetalert2';
   styleUrls: ['./heroe.component.css']
 })
 export class HeroeComponent implements OnInit {
-
+  // propriété, j'initisalise  avec HeroeModel
   heroe: HeroeModel = new HeroeModel();
 
-  constructor( private heroesService: HeroesService) { }
+  constructor(private heroesService: HeroesService) { }
 
   ngOnInit() {
   }
 
   enregistrer(form: NgForm) {
-
     if (form.invalid) {
       console.log('Le formulaire non valide');
       return;
     }
 
-// utilisation Swal pour l'affiche de message a l'utilisateur
+    // utilisation Swal pour l'affiche de message a l'utilisateur
     Swal.fire({
-    title: 'Attendez',
-    text: 'Enregistrement information',
-    icon: 'info',
-    allowOutsideClick: false,
+      title: 'Attendez',
+      text: 'Enregistrement information',
+      icon: 'info',
+      allowOutsideClick: false,
     });
 
     Swal.showLoading();
@@ -39,28 +38,28 @@ export class HeroeComponent implements OnInit {
     let petition: Observable<any>; // je cree une variable
 
 
-    if ( this.heroe.id) {
-      // j'initialise la variable 
+    if (this.heroe.id) {
+      // j'initialise la variable
 
-    petition = this.heroesService.actualisation( this.heroe );
+      petition = this.heroesService.actualisation(this.heroe);
 
-    // .subscribe( resp => {
-    // console.log(resp);
-    // });
+      // .subscribe( resp => {
+      // console.log(resp);
+      // });
 
     } else {
-    petition =  this.heroesService.creerHero(this.heroe);
+      petition = this.heroesService.creerHero(this.heroe);
 
-    // .subscribe( resp => {
-    // console.log(resp);
-    // });
+      // .subscribe( resp => {
+      // console.log(resp);
+      // });
 
     }
 
     petition.subscribe(resp => {
       Swal.fire({
         title: this.heroe.Prenom,
-        text:'Actualisation  correctement',
+        text: 'Actualisation  correctement',
         icon: 'success',
       });
     });

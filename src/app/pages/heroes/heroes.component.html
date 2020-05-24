@@ -1,53 +1,53 @@
-<h1>List de Héros</h1>
-
+<h1 class="text-center">List de Héros</h1>
+<hr>
 
 <div class="row ">
-  <div class="col text-right">
-    <button routerLink="/heroe/nouveau" class="btn btn-primary">
-        <i class="fa fa-plus"></i>
+    <div class="col text-right">
+        <button routerLink="/heroe/nouveau" class="btn btn-primary">
+      <i class="fa fa-plus"></i>
       Ajouter
     </button>
-  </div>
+    </div>
 </div>
+<!-- tableau de la liste de heros -->
+<table class="table mt-3 animated fadeIn faster">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nom du héro</th>
+            <th scope="col">Pouvoir</th>
+            <th scope="col">Vivant</th>
+            <th scope="col">Outils</th>
+        </tr>
+    </thead>
+    <tbody>
+        <br>
+        <tr *ngFor='let hero of heros; let i = index'>
+            <th scope="row"> {{ i + 1}}</th>
+            <td> {{ hero.Prenom }} </td>
+            <td> {{ hero.pouvoir }} </td>
+            <td> {{ hero.vivant }} </td>
+            <td>
+                <label *ngIf="hero.vivant" class="badge badge-success">Vivant</label>
+                <label *ngIf="!hero.vivant" class="badge badge-danger">Mort</label>
+            </td>
 
-<table class="table mt-3">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nom du héro</th>
-      <th scope="col">Pouvoir</th>
-      <th scope="col">Vivant</th>
-      <th scope="col">Outils</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor = 'let hero of heros; let i = index'>
-      <th scope="row"> {{ i + 1}}</th>
-      <td> {{ hero.Prenom }} </td>
-      <td> {{ hero.pouvoir }} </td>
-      <td> {{ hero.vivant }} </td>
-      <td>
-        <label *ngIf = "hero.vivant"  class="badge badge-success" >Vivant</label>
-        <label *ngIf = "!hero.vivant"  class="badge badge-danger" >Mort</label>
-      </td>
-      <td>  </td>
-    </tr>
-  </tbody>
+        </tr>
+    </tbody>
 </table>
+<!-- message information sur les registres -->
 
 <div class=" alert alert-warning text-center mt-3">
-  <h4 class="alert-heading">Pas de registre</h4>
-  <i class="fa fa-exclamation fa-2x"></i>
+    <h4 class="alert-heading">Pas de registre</h4>
+    <i class="fa fa-exclamation fa-2x"></i>
 </div>
 
 <div class=" alert alert-info text-center mt-3">
-  <h4 class="alert-heading">chargement</h4>
-  <p>
-      <i class=" fa fa-sync-alt fa-spin fa-2x">
-
-      </i>
-  </p>
-  <p class="mb-0">
-    Veuillez patienter
-  </p>
+    <h4 class="alert-heading">chargement</h4>
+    <p>
+        <i class=" fa fa-sync-alt fa-spin fa-2x"> </i>
+    </p>
+    <p class="mb-0">
+        Veuillez patienter
+    </p>
 </div>
