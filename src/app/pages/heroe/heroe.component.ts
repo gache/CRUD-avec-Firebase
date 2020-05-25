@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { HeroesService } from '../../services/heroes.service';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-heroe',
@@ -15,10 +16,22 @@ export class HeroeComponent implements OnInit {
   // propriété, j'initisalise  avec HeroeModel
   heroe: HeroeModel = new HeroeModel();
 
- // j'injecte mon service au contructor pour y acceder à la petition post
-  constructor(private heroesService: HeroesService) { }
+  // j'injecte mon service au contructor pour y acceder à la petition post
+  constructor(private heroesService: HeroesService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (id !== 'nouveau') {
+      this.heroesService.getHeroId(id)
+        .subscribe((resp: HeroeModel) => {
+          this.heroe = resp;
+          this.heroe.id = id;
+        });
+    }
+
   }
 
   enregistrer(form: NgForm) {
@@ -27,38 +40,30 @@ export class HeroeComponent implements OnInit {
       return;
     }
 
-    // utilisation Swal pour l'affiche de message a l'utilisateur
+    // utilisation Sweetarlert2 affichage du message a l'utilisateur de patientez
     Swal.fire({
       title: 'Attendez',
       text: 'Enregistrement information',
       icon: 'info',
       allowOutsideClick: false,
     });
+    Swal.showLoading(); // Loading de Sweetarlert2
 
-    Swal.showLoading();
+    let petition: Observable<any>; // je cree une variable de type observable
 
-    let petition: Observable<any>; // je cree une variable
-
-// ma condition si une hero existe j'actualise, s'il n'y a pas d'information d'un hero du coup je crée un nouveau hero
+    // ma condition si un hero existe j'actualise, s'il n'y a pas d'information d'un hero du coup je crée un nouveau hero
     if (this.heroe.id) {
-      // actualisation du hero déjà existante
+      // j'initialise ma variable petition et comme resultat  va faire une actualisation du hero déjà existante
       petition = this.heroesService.actualiserHero(this.heroe);
-
-      // .subscribe( resp => {
-      // console.log(resp);
-      // });
-
     } else {
-      //  creation d'un nouveau hero
+      // j'initialise ma variable petition et comme resultat va créer un nouveau hero
       petition = this.heroesService.creerHero(this.heroe);
 
-      // .subscribe( resp => {
-      // console.log(resp);
-      // });
-
     }
-
+    // n'importe si j'actualise ou je crée un hero toute l'information est dans la variable petition
+    //  du coup je fais subscribe pour avoir la response.
     petition.subscribe(resp => {
+      // utilisation Sweetarlert2 affichage du message a l'utilisateur que l'information a été enregistrer correctement
       Swal.fire({
         title: this.heroe.Prenom,
         text: 'Actualisation  correctement',

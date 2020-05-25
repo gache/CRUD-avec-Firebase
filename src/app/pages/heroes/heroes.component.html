@@ -10,7 +10,7 @@
     </div>
 </div>
 <!-- tableau  liste de heros -->
-<table class="table mt-3 animated fadeIn faster">
+<table *ngIf="!loading && heros.length > 0" class="table mt-3 animated fadeIn faster">
     <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
@@ -26,10 +26,18 @@
             <th scope="row"> {{ i + 1}}</th>
             <td> {{ hero.Prenom }} </td>
             <td> {{ hero.pouvoir }} </td>
-            <td> {{ hero.vivant }} </td>
             <td>
                 <label *ngIf="hero.vivant" class="badge badge-success">Vivant</label>
                 <label *ngIf="!hero.vivant" class="badge badge-danger">Mort</label>
+            </td>
+            <td>
+                <button class="btn btn-info mr-1" [routerLink]=" ['/heroe', hero.id] ">
+          <i class="fa fa-pen"></i>
+        </button>
+                <button class="btn btn-danger" (click)="eliminerHero(hero, i)">
+          <i class="fa fa-trash"></i>
+        </button>
+
             </td>
 
         </tr>
@@ -37,12 +45,12 @@
 </table>
 <!-- message information sur les registres -->
 
-<div class=" alert alert-warning text-center mt-3">
+<div *ngIf="!loading && heros.length === 0" class=" alert alert-warning text-center mt-3 animated fadeIn faster">
     <h4 class="alert-heading">Pas de registre</h4>
     <i class="fa fa-exclamation fa-2x"></i>
 </div>
 
-<div class=" alert alert-info text-center mt-3">
+<div *ngIf="loading" class=" alert alert-info text-center mt-3 animated fadeIn faster">
     <h4 class="alert-heading">chargement</h4>
     <p>
         <i class=" fa fa-sync-alt fa-spin fa-2x"> </i>

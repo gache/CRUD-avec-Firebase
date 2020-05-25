@@ -40,10 +40,19 @@ export class HeroesService {
     //  la petition post reçoit comme arguments(url, et body que dans mon cas est herotemp que l'interieur contient mon hero )
 
     return this.http.put(`${this.Url}/Heroes/${hero.id}.json`, herotemp);
-    // comme chaque hero a une id, j'envoie à ma methode put l'url et mon hero, car l'Id est à l'interieur de celle-ci .
-    // j'envoie ma constante
+    // comme chaque hero a déjà une id, j'envoie à ma methode put l'url et mon objet hero, car l'Id est à l'interieur de celle-ci .
+    // j'envoie ma constante que c'est l'objet à actualiser
   }
 
+  // methode pour avoir l'hero avec son id
+
+  getHeroId(id: string) {
+    return this.http.get(`${this.Url}/Heroes/${id}.json`);
+  }
+
+
+
+  // methode pour avoirla liste des heros
   getHero() {
     return this.http.get(`${this.Url}/Heroes.json`).pipe(map(this.creerArray));
   }
@@ -61,5 +70,10 @@ export class HeroesService {
       return [];
     }
     return heroes;
+  }
+
+
+  effacerHero(id: string) {
+    return this.http.delete(`${this.Url}/Heroes/${id}.json`);
   }
 }
